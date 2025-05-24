@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="Desktop.Views.MainWindowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:local="clr-namespace:Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Desktop.ViewModels"
+    Title="{lex:Loc MainWindow_Title}"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
+    lex:ResxLocalizationProvider.DefaultAssembly="Desktop"
+    lex:ResxLocalizationProvider.DefaultDictionary="Lang"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <local:NullableDoubleToStringConverter x:Key="NullableDoubleToStringConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="{Binding Text}" />
+
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="24"
+            Text="{Binding Data, Converter={StaticResource NullableDoubleToStringConverter}}" />
+
+        <GridSplitter Grid.Column="0" />
+
+
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <DockPanel>
+                <Button
+                    Command="{Binding ChangeLanguageCommand}"
+                    CommandParameter="en-US"
+                    Content="English"
+                    DockPanel.Dock="Left" />
+                <Button
+                    Command="{Binding ChangeLanguageCommand}"
+                    CommandParameter="zh-CN"
+                    Content="中文"
+                    DockPanel.Dock="Right" />
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>
