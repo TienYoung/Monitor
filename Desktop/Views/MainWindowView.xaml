@@ -17,49 +17,54 @@
     <Window.Resources>
         <local:NullableDoubleToStringConverter x:Key="NullableDoubleToStringConverter" />
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseCommand_Executed" />
+    </Window.CommandBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{lex:Loc MainWindow_File}">
+                <Separator />
+                <MenuItem Command="ApplicationCommands.Close" Header="{lex:Loc MainWindow_Exit}" />
+            </MenuItem>
+            <MenuItem Header="{lex:Loc MainWindow_Edit}">
+                <MenuItem
+                    Command="{Binding OpenSettingsCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                    Header="{lex:Loc MainWindow_Settings}" />
+            </MenuItem>
+        </Menu>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <Label Content="Status:" />
+            </StatusBarItem>
+        </StatusBar>
 
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="24"
-            Text="{Binding Text}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="24"
-            Text="{Binding Data, Converter={StaticResource NullableDoubleToStringConverter}}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <GridSplitter Grid.Column="0" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24"
+                Text="{Binding Data, Converter={StaticResource NullableDoubleToStringConverter}}" />
+
+            <GridSplitter Grid.Column="0" />
 
 
-        <StackPanel Grid.Column="1" Orientation="Vertical">
-            <DockPanel>
-                <Button
-                    Command="{Binding ChangeLanguageCommand}"
-                    CommandParameter="en-US"
-                    Content="English"
-                    DockPanel.Dock="Left" />
-                <Button
-                    Command="{Binding ChangeLanguageCommand}"
-                    CommandParameter="zh-CN"
-                    Content="中文"
-                    DockPanel.Dock="Right" />
-            </DockPanel>
-        </StackPanel>
-    </Grid>
+            <StackPanel Grid.Column="1" Orientation="Vertical" />
+        </Grid>
+
+
+    </DockPanel>
 </Window>

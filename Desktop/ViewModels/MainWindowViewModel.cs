@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.Input;
 using Desktop.Interfaces;
 using Desktop.Models;
 using System.Globalization;
+using System.Reflection.Metadata;
+using System.Windows;
 using WPFLocalizeExtension.Engine;
 
 namespace Desktop.ViewModels
@@ -17,22 +19,25 @@ namespace Desktop.ViewModels
         private Double? _data;
 
         [RelayCommand]
-        private void ChangeLanguage(string local)
+        private void OpenSettings(object sender)
         {
-            LocalizeDictionary.Instance.Culture 
-                = Thread.CurrentThread.CurrentCulture 
-                = Thread.CurrentThread.CurrentUICulture 
-                = new CultureInfo(local);
+            if (sender is Window owner)
+            {
+                Ioc.Default.GetRequiredService<ISettingsService>().ShowUI(owner);
+            }
         }
 
-        public MainWindowViewModel()
+        [ObservableProperty]
+        private double _refreshRate = 2;
+
+        public MainWindowViewModel(ISensorService<SensorModel> sernsorService)
         {
             var lastUpdate = DateTime.MinValue;
 
-            var model = Ioc.Default.GetRequiredService<ISensorService<SensorModel>>().DataModel;
+            var model = sernsorService.DataModel;
             model.PropertyChanged += (s, e) =>
             {
-                if (DateTime.Now - lastUpdate > TimeSpan.FromMilliseconds(500))
+                if (DateTime.Now - lastUpdate > TimeSpan.FromMilliseconds(1000 / _refreshRate))
                 {
                     lastUpdate = DateTime.Now;
 

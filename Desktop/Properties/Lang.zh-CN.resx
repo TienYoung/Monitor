@@ -123,4 +123,31 @@
   <data name="MainWindow_Title" xml:space="preserve">
     <value>监视器</value>
   </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="MainWindow_File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="MainWindow_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="MainWindow_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Settings_Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Settings_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
 </root>

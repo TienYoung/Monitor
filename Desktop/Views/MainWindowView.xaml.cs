@@ -20,5 +20,10 @@ namespace Desktop.Views
         {
             InitializeComponent();
         }
+
+        private void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

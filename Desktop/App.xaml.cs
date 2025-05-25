@@ -27,6 +27,8 @@ namespace Desktop
                     .CreateLogger())
                 .AddTransient<MainWindowViewModel>()
                 .AddTransient<MainWindowView>(sp => new() { DataContext = sp.GetRequiredService<MainWindowViewModel>() })
+                .AddTransient<SettingsView>(_ => new() { DataContext = new SettingsViewModel() })
+                .AddTransient<ISettingsService, SettingsService>()
                 .BuildServiceProvider());
         }
 
