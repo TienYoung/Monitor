@@ -25,10 +25,11 @@ namespace Desktop
                     .MinimumLevel.Debug()
                     .WriteTo.File("sensor.log")
                     .CreateLogger())
+                .AddSingleton<ISettingsService, SettingsService>()
                 .AddTransient<MainWindowViewModel>()
                 .AddTransient<MainWindowView>(sp => new() { DataContext = sp.GetRequiredService<MainWindowViewModel>() })
-                .AddTransient<SettingsView>(_ => new() { DataContext = new SettingsViewModel() })
-                .AddTransient<ISettingsService, SettingsService>()
+                .AddTransient<SettingsViewModel>()
+                .AddTransient<SettingsView>(sp => new() { DataContext = sp.GetRequiredService<SettingsViewModel>() })
                 .BuildServiceProvider());
         }
 
@@ -36,6 +37,7 @@ namespace Desktop
         {
             Ioc.Default.GetRequiredService<ISensorService<SensorModel>>().Start();
             Ioc.Default.GetRequiredService<MainWindowView>().Show();
+            Ioc.Default.GetRequiredService<ISettingsService>().Load();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

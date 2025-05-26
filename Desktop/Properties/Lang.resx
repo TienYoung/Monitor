@@ -150,4 +150,7 @@
   <data name="Settings_Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="Settings_RefreshRate" xml:space="preserve">
+    <value>Refresh rate</value>
+  </data>
 </root>

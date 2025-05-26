@@ -52,10 +52,22 @@
                         ItemsSource="{Binding Source={StaticResource LanguageProvider}}"
                         SelectedItem="{Binding CurrentLanguge}" />
                 </StackPanel>
-                <!--<StackPanel Orientation="Horizontal">
-                <Label Content="Current" />
-                <TextBlock Text="{Binding SelectedLanguage}" />
-            </StackPanel>-->
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{lex:Loc Settings_RefreshRate}" Target="{Binding ElementName=RefreshRateSlider}" />
+                    <Slider
+                        x:Name="RefreshRateSlider"
+                        Width="200"
+                        Margin="100,0,0,0"
+                        IsSnapToTickEnabled="True"
+                        LargeChange="1"
+                        Maximum="10"
+                        Minimum="1"
+                        SmallChange="1"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        Value="{Binding RefreshRate}" />
+                    <TextBlock Text="{Binding RefreshRate}" />
+                </StackPanel>
             </StackPanel>
 
             <StackPanel
@@ -64,7 +76,7 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
                 <Button
-                    Margin="0,0,100,0"
+                    Margin="0,0,300,0"
                     Command="{Binding SaveCommand}"
                     Content="{lex:Loc Settings_Save}" />
                 <Button

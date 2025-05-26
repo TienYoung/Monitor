@@ -150,4 +150,7 @@
   <data name="Settings_Close" xml:space="preserve">
     <value>关闭</value>
   </data>
+  <data name="Settings_RefreshRate" xml:space="preserve">
+    <value>刷新率</value>
+  </data>
 </root>

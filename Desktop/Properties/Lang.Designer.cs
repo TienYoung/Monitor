@@ -133,6 +133,15 @@ namespace Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh rate.
+        /// </summary>
+        internal static string Settings_RefreshRate {
+            get {
+                return ResourceManager.GetString("Settings_RefreshRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Settings_Save {

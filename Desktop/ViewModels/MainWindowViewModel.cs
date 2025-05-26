@@ -1,12 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Desktop.Interfaces;
 using Desktop.Models;
-using System.Globalization;
-using System.Reflection.Metadata;
 using System.Windows;
-using WPFLocalizeExtension.Engine;
 
 namespace Desktop.ViewModels
 {
@@ -27,17 +26,31 @@ namespace Desktop.ViewModels
             }
         }
 
-        [ObservableProperty]
-        private double _refreshRate = 2;
-
         public MainWindowViewModel(ISensorService<SensorModel> sernsorService)
         {
+            double refreshRate = 0.0;
+            WeakReferenceMessenger.Default.Register<PropertyChangedMessage<double>>(this, (_, m) =>
+            {
+                if (m.PropertyName == "RefreshRate")
+                {
+                    refreshRate = m.NewValue;
+                }
+            });
+
             var lastUpdate = DateTime.MinValue;
 
             var model = sernsorService.DataModel;
             model.PropertyChanged += (s, e) =>
             {
-                if (DateTime.Now - lastUpdate > TimeSpan.FromMilliseconds(1000 / _refreshRate))
+                double interval = 1000 / refreshRate;
+                
+                if(Double.IsInfinity(interval))
+                {
+                    Data = null;
+                    return;
+                }
+
+                if (DateTime.Now - lastUpdate > TimeSpan.FromMilliseconds(interval))
                 {
                     lastUpdate = DateTime.Now;
 

@@ -23,10 +23,10 @@ namespace Desktop.ViewModels
     public partial class SettingsViewModel : ObservableObject
     {
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedLanguage))]
         private Language _currentLanguge = Language.English;
 
-        public string SelectedLanguage => CurrentLanguge.ToString();
+        [ObservableProperty]
+        private double _refreshRate = 2.0;
 
         [RelayCommand]
         private void Save()
@@ -44,6 +44,8 @@ namespace Desktop.ViewModels
                 Language.Chinese => ChangeLanguage("zh-CN"),
                 _ => ChangeLanguage("en-US"),
             };
+
+            WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<double>(this, nameof(RefreshRate), 2.0, RefreshRate));
         }
 
         [RelayCommand]

@@ -7,26 +7,23 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Desktop.Interfaces;
 using Desktop.Views;
+using Desktop.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Desktop.Services
 {
     public class SettingsService: ISettingsService
     {
-        private readonly SettingsView _view;
-
-        public SettingsService(SettingsView view)
-        {
-            _view = view;
-        }
         public void ShowUI(Window? owener = null)
         {
-            _view.Owner = owener;
-            _view.ShowDialog();
+            var view = Ioc.Default.GetRequiredService<SettingsView>();
+            view.Owner = owener;
+            view.ShowDialog();
         }
 
         public void Load()
         {
-            throw new NotImplementedException();
+            Ioc.Default.GetRequiredService<SettingsViewModel>().ApplyCommand.Execute(null);
         }
 
         public void Store()
