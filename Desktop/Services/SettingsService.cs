@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Desktop.Services
 {
-    public class SettingsService: ISettingsService
+    public class SettingsService: ISettingsService, ISubWindow
     {
         public void ShowUI(Window? owener = null)
         {

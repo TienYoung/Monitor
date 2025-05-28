@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Desktop.Interfaces;
 using Desktop.Models;
+using Desktop.Enums;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace Desktop.ViewModels
@@ -12,17 +14,48 @@ namespace Desktop.ViewModels
     public partial class MainWindowViewModel : ObservableObject
     {
         [ObservableProperty]
-        private String _text = "设置如上后，所有以下内容都将使用 Noto 字体";
+        private string _text = "设置如上后，所有以下内容都将使用 Noto 字体";
 
         [ObservableProperty]
-        private Double? _data;
+        private double? _data;
 
         [RelayCommand]
         private void OpenSettings(object sender)
         {
             if (sender is Window owner)
             {
-                Ioc.Default.GetRequiredService<ISettingsService>().ShowUI(owner);
+                var progressService = Ioc.Default.GetRequiredService<IProgressService>();
+                progressService.Starting += (progress, token) =>
+                {
+                    Task.Run(async () =>
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+                            for (int i = 1; i <= 100; i++)
+                            {
+                                progress.Report(i);
+                                await Task.Delay(50, token).ConfigureAwait(false);
+                            }
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // Handle cancellation if needed
+                        }
+                    }, token);
+                };
+
+                progressService.Stopped += (result) =>
+                {
+                    if (result == false)
+                    {
+                        return;
+                    }
+                    var sp = Ioc.Default.GetRequiredService<IServiceProvider>();
+                    sp.GetRequiredKeyedService<ISubWindow>(SubWindowTypes.Settings).ShowUI(owner);
+                };
+                var sp = Ioc.Default.GetRequiredService<IServiceProvider>();
+                sp.GetRequiredKeyedService<ISubWindow>(SubWindowTypes.Progress).ShowUI(owner);
             }
         }
 

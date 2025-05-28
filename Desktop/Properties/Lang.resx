@@ -153,4 +153,10 @@
   <data name="Settings_RefreshRate" xml:space="preserve">
     <value>Refresh rate</value>
   </data>
+  <data name="ProgressDialog_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProgressDialog_Title" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
 </root>

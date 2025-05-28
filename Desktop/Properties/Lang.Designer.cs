@@ -106,6 +106,24 @@ namespace Desktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ProgressDialog_Cancel {
+            get {
+                return ResourceManager.GetString("ProgressDialog_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait....
+        /// </summary>
+        internal static string ProgressDialog_Title {
+            get {
+                return ResourceManager.GetString("ProgressDialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         internal static string Settings_Apply {

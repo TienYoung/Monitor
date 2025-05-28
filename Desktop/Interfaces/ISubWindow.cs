@@ -7,9 +7,8 @@ using System.Windows;
 
 namespace Desktop.Interfaces
 {
-    public interface ISettingsService
+    public interface ISubWindow
     {
-        public void Load();
-        public void Store();
+        public void ShowUI(Window? owener = null);
     }
 }

@@ -10,16 +10,18 @@ namespace Desktop.Services
 {
     public class MockSensor : ISensorService<SensorModel>
     {
-        public SensorModel DataModel => model;
+        public SensorModel DataModel => _model;
 
-        private SensorModel model = new SensorModel();
+        private SensorModel _model = new SensorModel();
 
         private CancellationTokenSource? _cts;
+
+        private Task? _captureTask;
 
         public void Start()
         {
             _cts = new CancellationTokenSource();
-            Task.Run(() =>
+            _captureTask = Task.Run(() =>
             {
                 // Simulate some work with a delay
                 while (!_cts.Token.IsCancellationRequested)
@@ -27,12 +29,12 @@ namespace Desktop.Services
                     var data = Random.Shared.NextDouble();
                     if (data > 0.1)// Only the value greater than 0.1 is valid
                     {
-                        model.CurrentValue = data;
-                        model.AddDataRecord(DateTime.Today, data);
+                        _model.CurrentValue = data;
+                        _model.AddDataRecord(DateTime.Today, data);
                     }
                     else
                     {
-                        model.CurrentValue = null;
+                        _model.CurrentValue = null;
                     }
 
                     Thread.Sleep(20); // data capture interval

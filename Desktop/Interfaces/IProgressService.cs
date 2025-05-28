@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Desktop.Interfaces
 {
-    public interface ISettingsService
+    public interface IProgressService
     {
-        public void Load();
-        public void Store();
+        public event Action<IProgress<int>, CancellationToken>? Starting;
+        
+        public event Action<bool>? Stopped;
     }
 }

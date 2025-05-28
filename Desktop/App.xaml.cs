@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using Desktop.Interfaces;
+using Desktop.Enums;
 using Desktop.Models;
 using Desktop.Services;
 using Desktop.ViewModels;
@@ -25,7 +26,12 @@ namespace Desktop
                     .MinimumLevel.Debug()
                     .WriteTo.File("sensor.log")
                     .CreateLogger())
-                .AddSingleton<ISettingsService, SettingsService>()
+                .AddSingleton<SettingsService>()
+                .AddSingleton<ISettingsService>(sp => sp.GetRequiredService<SettingsService>())
+                .AddKeyedSingleton<ISubWindow>(SubWindowTypes.Settings, (sp, _) => sp.GetRequiredService<SettingsService>())
+                .AddScoped<ProgressService>()
+                .AddScoped<IProgressService>(sp => sp.GetRequiredService<ProgressService>())
+                .AddKeyedScoped<ISubWindow>(SubWindowTypes.Progress, (sp, _) => sp.GetRequiredService<ProgressService>())
                 .AddTransient<MainWindowViewModel>()
                 .AddTransient<MainWindowView>(sp => new() { DataContext = sp.GetRequiredService<MainWindowViewModel>() })
                 .AddTransient<SettingsViewModel>()
