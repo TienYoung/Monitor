@@ -24,7 +24,8 @@ namespace Desktop.ViewModels
         {
             if (sender is Window owner)
             {
-                var progressService = Ioc.Default.GetRequiredService<IProgressService>();
+                using var progressServiceScope = Ioc.Default.CreateScope();
+                var progressService = progressServiceScope.ServiceProvider.GetRequiredService<IProgressService>();
                 progressService.Starting += (progress, token) =>
                 {
                     Task.Run(async () =>
@@ -54,8 +55,7 @@ namespace Desktop.ViewModels
                     var sp = Ioc.Default.GetRequiredService<IServiceProvider>();
                     sp.GetRequiredKeyedService<ISubWindow>(SubWindowTypes.Settings).ShowUI(owner);
                 };
-                var sp = Ioc.Default.GetRequiredService<IServiceProvider>();
-                sp.GetRequiredKeyedService<ISubWindow>(SubWindowTypes.Progress).ShowUI(owner);
+                progressServiceScope.ServiceProvider.GetRequiredKeyedService<ISubWindow>(SubWindowTypes.Progress).ShowUI(owner);
             }
         }
 
