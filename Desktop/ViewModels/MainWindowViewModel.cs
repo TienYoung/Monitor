@@ -26,24 +26,20 @@ namespace Desktop.ViewModels
             {
                 using var progressServiceScope = Ioc.Default.CreateScope();
                 var progressService = progressServiceScope.ServiceProvider.GetRequiredService<IProgressService>();
-                progressService.Starting += (progress, token) =>
+                progressService.DialogLoaded = async (s, e) =>
                 {
-                    Task.Run(async () =>
+                    try
                     {
-                        try
+                        progressService.Token.ThrowIfCancellationRequested();
+                        for (int i = 1; i <= 100; i++)
                         {
-                            token.ThrowIfCancellationRequested();
-                            for (int i = 1; i <= 100; i++)
-                            {
-                                progress.Report(i);
-                                await Task.Delay(50, token).ConfigureAwait(false);
-                            }
+                            progressService.Progress.Report(i);
+                            await Task.Delay(50, progressService.Token).ConfigureAwait(false);
                         }
-                        catch (OperationCanceledException)
-                        {
-                            // Handle cancellation if needed
-                        }
-                    }, token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                    }
                 };
 
                 progressService.Stopped += (result) =>

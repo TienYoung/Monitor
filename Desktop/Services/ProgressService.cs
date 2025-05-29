@@ -11,30 +11,34 @@ namespace Desktop.Services
 {
     public class ProgressService : IProgressService, ISubWindow
     {
-        public event Action<IProgress<int>, CancellationToken>? Starting;
+        public event Action? Starting;
 
         public event Action<bool>? Stopped;
 
-        private CancellationTokenSource? _cts;
+        private ProgressDialogView _dialog { get; } = new();
+
+        public RoutedEventHandler DialogLoaded { set => _dialog.Loaded += value; }
+
+        public IProgress<int> Progress => _dialog.Progress;
+
+        public CancellationToken Token => _dialog.Token;
 
         public void ShowUI(Window? owener = null)
         {
-            var progressDialog = new ProgressDialogView();
-            progressDialog.Owner = owener;
-            _cts = new CancellationTokenSource();
+            OnProgressStarting();
 
-            OnProgressStarting(progressDialog.Percentage, _cts.Token);
-            OnProgressStopped(progressDialog.ShowDialog() ?? false);
+            _dialog.Owner = owener ?? _dialog.Owner;
+
+            OnProgressStopped(_dialog.ShowDialog() ?? false);
         }
 
-        private void OnProgressStarting(IProgress<int> progress, CancellationToken token)
+        private void OnProgressStarting()
         {
-            Starting?.Invoke(progress, token);
+            Starting?.Invoke();
         }
 
         private void OnProgressStopped(bool result)
         {
-            _cts?.Cancel();
             Stopped?.Invoke(result);
         }
     }

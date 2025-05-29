@@ -19,23 +19,29 @@ namespace Desktop.Views
     /// </summary>
     public partial class ProgressDialogView : Window
     {
-        public Progress<int> Percentage { get; }
+        public IProgress<int> Progress { get; }
+        
+        public CancellationToken Token => _cts.Token;
+
+        private CancellationTokenSource _cts { get; }
 
         public ProgressDialogView()
         {
             InitializeComponent();
 
-            Percentage = new((value) => 
+            Progress = new Progress<int>((value) => 
             {
-                if (value == 100)
-                    DialogResult = true;
+                if (value == 100) DialogResult = true;
 
                 PercentProgressBar.Value = value;
             });
+
+            _cts = new CancellationTokenSource();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            _cts.Cancel();
             DialogResult = false;
         }
     }
