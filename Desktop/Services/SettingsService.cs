@@ -14,10 +14,10 @@ namespace Desktop.Services
 {
     public class SettingsService: ISettingsService, ISubWindow
     {
-        public void ShowUI(Window? owener = null)
+        public void ShowUI(Window? owner = null)
         {
             var view = Ioc.Default.GetRequiredService<SettingsView>();
-            view.Owner = owener;
+            view.Owner = owner;
             view.ShowDialog();
         }
 

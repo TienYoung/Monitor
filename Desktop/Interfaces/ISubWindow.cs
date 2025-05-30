@@ -9,6 +9,6 @@ namespace Desktop.Interfaces
 {
     public interface ISubWindow
     {
-        public void ShowUI(Window? owener = null);
+        public void ShowUI(Window? owner = null);
     }
 }

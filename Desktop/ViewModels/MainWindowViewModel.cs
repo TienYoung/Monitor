@@ -8,16 +8,43 @@ using Desktop.Models;
 using Desktop.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _text = "设置如上后，所有以下内容都将使用 Noto 字体";
+        private DateTime _startTime = DateTime.Now.AddSeconds(-10);
 
         [ObservableProperty]
+        private DateTime _endTime = DateTime.Now;
+
+        public class DataEntry
+        {
+            public DateTime Timestamp { get; set; }
+            public double Value { get; set; }
+        }
+
+        public ObservableCollection<DataEntry> DataCollection { get; } = new();
+
+        [ObservableProperty]
+        private string _text = "设置如上后，所有以下内容都将使用 Noto 字体";
+
         private double? _data;
+        public double? Data
+        {
+            get => _data;
+            set
+            {
+                if (SetProperty(ref _data, value))
+                {
+                    DataCollection.Add(new() { Value = Data ?? 0, Timestamp = DateTime.Now});
+                    StartTime = DateTime.Now.AddSeconds(-10);
+                    EndTime = DateTime.Now;
+                }
+            }
+        }
 
         [RelayCommand]
         private void OpenSettings(object sender)
@@ -85,7 +112,10 @@ namespace Desktop.ViewModels
 
                     if (e.PropertyName == nameof(model.CurrentValue))
                     {
-                        Data = model.CurrentValue;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Data = model.CurrentValue;
+                        });
                     }
                 }
             };

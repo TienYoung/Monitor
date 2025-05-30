@@ -23,11 +23,11 @@ namespace Desktop.Services
 
         public CancellationToken Token => _dialog.Token;
 
-        public void ShowUI(Window? owener = null)
+        public void ShowUI(Window? owner = null)
         {
             OnProgressStarting();
 
-            _dialog.Owner = owener ?? _dialog.Owner;
+            _dialog.Owner = owner;
 
             OnProgressStopped(_dialog.ShowDialog() ?? false);
         }

@@ -6,6 +6,7 @@
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
     xmlns:vm="clr-namespace:Desktop.ViewModels"
     Title="{lex:Loc MainWindow_Title}"
     Width="800"
@@ -51,18 +52,38 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Row="1"
-                Grid.Column="0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="24"
-                Text="{Binding Data, Converter={StaticResource NullableDoubleToStringConverter}}" />
+            <syncfusion:SfChart>
+                <syncfusion:SfChart.PrimaryAxis>
+                    <syncfusion:DateTimeAxis
+                        Interval="100"
+                        IntervalType="Milliseconds"
+                        LabelFormat="mm:ss"
+                        Maximum="{Binding EndTime}"
+                        Minimum="{Binding StartTime}" />
+                </syncfusion:SfChart.PrimaryAxis>
+
+                <syncfusion:SfChart.SecondaryAxis>
+                    <syncfusion:NumericalAxis Interval="0.1" SmallTicksPerInterval="3" />
+                </syncfusion:SfChart.SecondaryAxis>
+
+                <syncfusion:FastLineSeries
+                    ItemsSource="{Binding DataCollection}"
+                    XBindingPath="Timestamp"
+                    YBindingPath="Value" />
+            </syncfusion:SfChart>
 
             <GridSplitter Grid.Column="0" />
 
 
-            <StackPanel Grid.Column="1" Orientation="Vertical" />
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
+                    Text="{Binding Data, Converter={StaticResource NullableDoubleToStringConverter}}" />
+            </StackPanel>
         </Grid>
 
 
