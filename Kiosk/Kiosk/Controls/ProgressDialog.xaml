@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Kiosk.Controls.ProgressDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Kiosk.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Gauges"
+    CloseButtonClick="ContentDialog_CloseButtonClick"
+    CloseButtonText="Cancel"
+    IsPrimaryButtonEnabled="False"
+    IsSecondaryButtonEnabled="False"
+    mc:Ignorable="d">
+
+    <ContentDialog.Resources>
+        <Style BasedOn="{StaticResource DefaultContentDialogStyle}" TargetType="local:ProgressDialog" />
+    </ContentDialog.Resources>
+
+    <syncfusion:SfLinearGauge Orientation="Horizontal">
+        <syncfusion:SfLinearGauge.Axis>
+            <syncfusion:LinearAxis
+                AxisLineStrokeThickness="24"
+                CornerStyle="BothFlat"
+                ShowLabels="False"
+                ShowTicks="False">
+                <syncfusion:LinearAxis.BarPointers>
+                    <syncfusion:BarPointer
+                        x:Name="ProgressBar"
+                        AnimationDuration="100"
+                        Background="Green"
+                        CornerStyle="BothFlat"
+                        EnableAnimation="True"
+                        PointerSize="24" />
+                </syncfusion:LinearAxis.BarPointers>
+            </syncfusion:LinearAxis>
+        </syncfusion:SfLinearGauge.Axis>
+    </syncfusion:SfLinearGauge>
+</ContentDialog>
