@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
-    <None Remove="Fonts\NotoSans-Regular.ttf" />
-    <None Remove="Fonts\NotoSansSC-Regular.ttf" />
+    <None Remove="Assets\Fonts\NotoSans-Regular.ttf" />
+    <None Remove="Assets\Fonts\NotoSansSC-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\NotoSans-Regular.ttf" />
-    <Resource Include="Fonts\NotoSansSC-Regular.ttf" />
+    <Resource Include="Assets\Fonts\NotoSans-Regular.ttf" />
+    <Resource Include="Assets\Fonts\NotoSansSC-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,19 +7,19 @@
     Startup="Application_Startup">
     <Application.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="FontFamily" Value="pack://application:,,,/Desktop;component/Fonts/#Noto Sans, pack://application:,,,/Desktop;component/Fonts/#Noto Sans SC" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/#Noto Sans, Assets/Fonts/#Noto Sans SC" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="pack://application:,,,/Desktop;component/Fonts/#Noto Sans, pack://application:,,,/Desktop;component/Fonts/#Noto Sans SC" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/#Noto Sans, Assets/Fonts/#Noto Sans SC" />
         </Style>
         <Style TargetType="Control">
-            <Setter Property="FontFamily" Value="pack://application:,,,/Desktop;component/Fonts/#Noto Sans, pack://application:,,,/Desktop;component/Fonts/#Noto Sans SC" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/#Noto Sans, Assets/Fonts/#Noto Sans SC" />
         </Style>
         <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="pack://application:,,,/Desktop;component/Fonts/#Noto Sans, pack://application:,,,/Desktop;component/Fonts/#Noto Sans SC" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/#Noto Sans, Assets/Fonts/#Noto Sans SC" />
         </Style>
         <Style TargetType="Window">
-            <Setter Property="FontFamily" Value="pack://application:,,,/Desktop;component/Fonts/#Noto Sans, pack://application:,,,/Desktop;component/Fonts/#Noto Sans SC" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/#Noto Sans, Assets/Fonts/#Noto Sans SC" />
         </Style>
     </Application.Resources>
 </Application>
