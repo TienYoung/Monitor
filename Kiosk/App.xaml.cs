@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kiosk.ViewModels;
+using Kiosk.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -21,6 +25,11 @@ namespace Kiosk
             InitializeComponent();
 
             Suspending += OnSuspending;
+
+            Ioc.Default.ConfigureServices(
+                new ServiceCollection()
+                .AddTransient<MainViewModel>()
+                .BuildServiceProvider());
         }
 
         /// <inheritdoc/>

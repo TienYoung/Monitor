@@ -1,13 +1,14 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Kiosk.ViewModels;
+using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using System.IO.Ports;
 
-namespace Kiosk
+namespace Kiosk.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a <see cref="Frame">.
@@ -20,6 +21,8 @@ namespace Kiosk
         public MainPage()
         {
             InitializeComponent();
+
+            DataContext = Ioc.Default.GetRequiredService<MainViewModel>();
 
             // Set XAML element as a drag region.
             Window.Current.SetTitleBar(AppTitleBar);
